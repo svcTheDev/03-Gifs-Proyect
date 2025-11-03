@@ -1,15 +1,7 @@
 import React from "react";
 import {Gif} from '../../gifs.mock/gifs.mock';
 
-// interface Gif {
-//   id: string;
-//   title: string;
-//   url: string;
-//   width: number;
-//   height: number;
-// }
-
-const Gifs = ( mockGifs : Gif[]) => {
+const Gifs = ({mockGifs} : { mockGifs: Gif[] })  => {
   return (
     <div>
       <div className="gifs-container">
