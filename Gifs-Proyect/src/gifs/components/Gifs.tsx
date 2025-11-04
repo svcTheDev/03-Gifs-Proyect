@@ -1,11 +1,15 @@
-import React from "react";
-import {Gif} from '../../gifs.mock/gifs.mock';
+import React, { FC } from "react";
+import type {Gif} from '../../gifs.mock/gifs.mock';
 
-const Gifs = ({mockGifs} : { mockGifs: Gif[] })  => {
+interface Props {
+  gifs: Gif[];
+}
+
+const Gifs : FC<Props> = ({gifs} )  => {
   return (
     <div>
       <div className="gifs-container">
-        {mockGifs.map((gifs) => (
+        {gifs.map((gifs) => (
           <div className="gif-card" key={gifs.id}>
             <img src={gifs.url} alt={gifs.title} />
             <p>{gifs.title}</p>

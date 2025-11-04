@@ -3,18 +3,21 @@ import CustomHeader from "./shared/components/CustomHeader";
 import PreviousSearches from "./gifs/components/PreviousSearches";
 import Gifs from "./gifs/components/Gifs";
 import {mockGifs} from './gifs.mock/gifs.mock';
- 
 
 import "./index.css";
+import { useState } from "react";
+
+
 const GifsApp = () => {
-  console.log(mockGifs);
+  const [previousTerm, setPreviousTerm] = useState([]);
 
   return (
     <>
       <CustomHeader title={'Buscador de gifs'} description={'Descubre y comparte el gif perfect'} />
-      <SearchBar searchValue={'Buscar gifs'} />
-      <PreviousSearches />
-      <Gifs mockGifs={mockGifs} />
+      <SearchBar searchValue={'Buscar gifs'} handleTermClicked={handleTermClicked} />
+      <PreviousSearches searches={
+        ["amor", "soledad", "amistad"]} />
+      <Gifs gifs={mockGifs} />
     </>
   );
 };
