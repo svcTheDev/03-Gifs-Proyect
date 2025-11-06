@@ -11,11 +11,20 @@ import { useState } from "react";
 const GifsApp = () => {
   const [previousTerm, setPreviousTerm] = useState<Prop['previousTerm']>([]);
 
-  function saveTermSearch(userText: string[]) {
-    // let terms = [];
-    setPreviousTerm(userText);
+
+  function handleSearch(query: string[]) {
+    // console.log(query[0]);
+    if (query[0] === '') {
+      return;
+    }
+    setPreviousTerm(query);
     console.log(previousTerm);
   }
+
+  function handleTermClicked(previous : string[]) {
+    console.log(previous);
+  }
+
 
   return (
     <>
@@ -23,8 +32,8 @@ const GifsApp = () => {
         title={"Buscador de gifs"}
         description={"Descubre y comparte el gif perfect"}
       />
-      <SearchBar searchValue={"Buscar gifs"} saveTermSearch={saveTermSearch} previousTerm={previousTerm} />
-      <PreviousSearches searches={previousTerm} />
+      <SearchBar searchValue={"Buscar gifs"} handleSearch={handleSearch} previousTerm={previousTerm} />
+      <PreviousSearches searches={previousTerm} handleTermClicked={handleTermClicked}/>
       <Gifs gifs={mockGifs} />
     </>
   );

@@ -1,32 +1,52 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export interface Prop {
     searchValue : string;
-    saveTermSearch : (arg: string[]) => void; 
+    handleSearch : (arg: string[]) => void; 
     previousTerm : string[];
   }
 
-const SearchBar = ({searchValue, saveTermSearch, previousTerm} : Prop ) => {
+const SearchBar = ({searchValue, handleSearch, previousTerm} : Prop ) => {
   const [inputText, setInputText] = useState('');
 
-  function getInputText (e : React.ChangeEvent<HTMLInputElement>) {
-    setInputText(e.target.value)
+  const onKeyDownSearch = (e : React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        onQuery();
+      }
   }
 
-  function onHandleSearch () {
-    const newTerm = [...previousTerm, inputText]
+  useEffect(() => {
+    const timeoutID = setTimeout(() => {
+      onQuery();
+    }, 700);
 
-    saveTermSearch(newTerm);
+    return () => {
+      clearTimeout(timeoutID);
+    }
+
+  }, [inputText])
+
+
+  function onQuery () { 
+    if (inputText !== '') {
+      setInputText.lowercase();
+
+      const newTerm = [...previousTerm, inputText]
+      handleSearch(newTerm);
+    }
+
     setInputText('')
   }
+
+  
   return (
     <div>
       <div className="search-container content-center">
         <label htmlFor="Search">
-          <input onChange={getInputText} type="text" placeholder={searchValue} value={inputText} />
+          <input onKeyDown={onKeyDownSearch}  onChange={(e) => setInputText(e.target.value) } type="text" placeholder={searchValue} value={inputText} />
         </label>
-        <button onClick={onHandleSearch}>Buscar</button>
+        <button onClick={onQuery}>Buscar</button>
       </div>
     </div>
   );
