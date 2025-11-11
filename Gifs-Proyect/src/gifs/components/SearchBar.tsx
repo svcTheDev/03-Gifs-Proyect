@@ -1,13 +1,12 @@
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export interface Prop {
     searchValue : string;
-    handleSearch : (arg: string[]) => void; 
-    previousTerm : string[];
+    handleSearch : (arg: string) => void; 
   }
 
-const SearchBar = ({searchValue, handleSearch, previousTerm} : Prop ) => {
+const SearchBar = ({searchValue, handleSearch} : Prop ) => {
   const [inputText, setInputText] = useState('');
 
   const onKeyDownSearch = (e : React.KeyboardEvent<HTMLInputElement>) => {
@@ -29,11 +28,9 @@ const SearchBar = ({searchValue, handleSearch, previousTerm} : Prop ) => {
 
 
   function onQuery () { 
-    if (inputText !== '') {
-      setInputText.lowercase();
-
-      const newTerm = [...previousTerm, inputText]
-      handleSearch(newTerm);
+    let newWord = inputText.trim().toLowerCase();
+    if (newWord !== '') {
+      handleSearch(newWord);
     }
 
     setInputText('')
