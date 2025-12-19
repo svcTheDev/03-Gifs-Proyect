@@ -4,15 +4,16 @@ import {Gif} from '../interfaces/gif.interface'
 
 export const  getGifByQuery = async (query : string): Promise<Gif[]> => { 
     
-const response = await axios.get<GiphyResponse>('https://api.giphy.com/v1/gifs/search?', {
+const response = await axios.get<GiphyResponse>('https://api.giphy.com/v1/gifs/search', {
       params: {
         q: query,
         limit: 6,
         lang: 'es',
-        api_key: 'VITE_GIPHY_API_KEY='
+        api_key: 'qyvNGy83RQf9iSwNDCCIT168rMzNnfaw'
       }
     })
 
+  
 
     return response.data.data.map((gif) => ({
       id: gif.id,
